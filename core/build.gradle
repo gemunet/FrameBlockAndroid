@@ -1,4 +1,28 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+ext {
+    versionName = '1.0.0'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9.1'
+    }
+}
+
+publish {
+    userOrg = 'gemunet'
+    repoName = 'frameblock'
+    groupId = 'lab.glogic.frameblock'
+    artifactId = 'core'
+    publishVersion = versionName
+    repository = 'https://github.com/gemunet/lab.glogic.common.git'
+    desc = 'Core FrameBlock Android'
+}
 
 android {
     compileSdkVersion 29
@@ -9,7 +33,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
