@@ -3,4 +3,5 @@
 
     <string name="canceled">Cancelado por el usuario</string>
     <string name="success">Finalizado exitosamente</string>
+    <string name="required_fields">Campos requeridos</string>
 </resources>

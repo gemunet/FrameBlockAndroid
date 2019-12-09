@@ -1,8 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 apply plugin: 'com.novoda.bintray-release'
 
 ext {
-    versionName = '1.0.0'
+    mvnGroupId = 'lab.glogic.frameblock'
+    mvnArtifactId = 'widget'
+    mvnVersionName = '1.1.0'
 }
 
 buildscript {
@@ -17,11 +20,25 @@ buildscript {
 publish {
     userOrg = 'gemunet'
     repoName = 'frameblock'
-    groupId = 'lab.glogic.frameblock'
-    artifactId = 'Widget'
-    publishVersion = versionName
-    repository = 'https://github.com/gemunet/lab.glogic.common.git'
-    desc = 'Widget FrameBlock Android'
+    groupId = mvnGroupId
+    artifactId = mvnArtifactId
+    publishVersion = mvnVersionName
+    repository = 'https://github.com/gemunet/FrameBlockAndroid.git'
+    desc = 'Widget Android library'
+}
+
+publishing {
+    repositories {
+        mavenLocal()
+    }
+    publications {
+        maven(MavenPublication) {
+            groupId mvnGroupId
+            artifactId mvnArtifactId
+            version mvnVersionName
+            artifact("$buildDir/outputs/aar/$project.name-release.aar")
+        }
+    }
 }
 
 android {
@@ -33,7 +50,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
-        versionName versionName
+        versionName mvnVersionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -55,6 +72,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
+    api 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
 }

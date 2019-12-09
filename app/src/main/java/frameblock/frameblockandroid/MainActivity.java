@@ -44,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
                 openWizard();
             }
         });
+
+        Button btnForm = findViewById(R.id.btnForm);
+        btnForm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openForm();
+            }
+        });
     }
 
     private void openSimpleDialog() {
@@ -59,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
     private void openWizard() {
         Intent intent = new Intent(this, WizardDemoActivity.class);
         startActivityForResult(intent, WIZARD_REQUEST);
+    }
+
+    private void openForm() {
+        Intent intent = new Intent(this, FormActivity.class);
+        startActivity(intent);
     }
 
 

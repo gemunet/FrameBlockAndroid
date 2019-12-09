@@ -1,6 +1,7 @@
 package frameblock.widget.util;
 
 import android.content.Context;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -106,15 +107,19 @@ public class WidgetUtils {
         }
     }
 
-    public static void TimeDatePicker(final EditText et, final FragmentManager fragmentManager, Date defaultItem) {
-        initDateTime(et, fragmentManager, DateTimeFragment.DialogType.DIALOG_TIME, defaultItem);
+    public static void TimeDatePicker(final EditText et, final FragmentManager fragmentManager, Date defaultItem, String format) {
+        initDateTime(et, fragmentManager, DateTimeFragment.DialogType.DIALOG_TIME, defaultItem, format);
     }
 
-    public static void DateTimePicker(final EditText et, final FragmentManager fragmentManager, Date defaultItem) {
-        initDateTime(et, fragmentManager, DateTimeFragment.DialogType.DIALOG_DATE, defaultItem);
+    public static void DateTimePicker(final EditText et, final FragmentManager fragmentManager, Date defaultItem, String format) {
+        initDateTime(et, fragmentManager, DateTimeFragment.DialogType.DIALOG_DATE, defaultItem, format);
     }
 
-    private static void initDateTime(final EditText et, final FragmentManager fragmentManager, final DateTimeFragment.DialogType type, final Date defaultItem) {
+    private static void initDateTime(final EditText et, final FragmentManager fragmentManager, final DateTimeFragment.DialogType type, final Date defaultItem, final String format) {
+        et.setInputType(InputType.TYPE_CLASS_DATETIME);
+        et.setEms(10);
+        et.setClickable(true);
+        et.setFocusable(false);
         et.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -124,7 +129,7 @@ public class WidgetUtils {
                     public void onDateTimeSet(Date date) {
                         Log.d("DATE", ""+date);
                         EditText editText = (EditText)view;
-                        editText.setText(StringUtil.dateFormat(date));
+                        editText.setText(StringUtil.dateToString(date, format));
                         editText.setError(null);
                         editText.setTag(date);
                     }
@@ -132,7 +137,7 @@ public class WidgetUtils {
                 dialogFragment.show(fragmentManager, "dialog");
             }
         });
-        et.setText(StringUtil.dateFormat(defaultItem));
+        et.setText(StringUtil.dateToString(defaultItem, format));
         et.setTag(defaultItem);
     }
 }

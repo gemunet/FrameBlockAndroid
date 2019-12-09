@@ -36,6 +36,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Wizard" />
+
+            <Button
+                android:id="@+id/btnForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Form" />
         </LinearLayout>
     </ScrollView>
 
